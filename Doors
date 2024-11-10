@@ -21,8 +21,62 @@ Tabs.Main:AddDropdown({
   Options = {"Revive", "Leave", "Lobby"},
   Default = "Revive",
   Callback = function(v)
+_G.SelectDeath = v
+if game.Players.LocalPlayer.Character.Humanoid.Health == 0 and _G.SelectDeath == "Lobby" then
+if _G.EnabledDeath then
+game.ReplicatedStorage.EntityInfo.Lobby:FireServer()
+game.ReplicatedStorage.RemoteFolder.Lobby:FireServer()
+end
+elseif game.Players.LocalPlayer.Character.Humanoid.Health == 0 and _G.SelectDeath == "Leave" then
+if _G.EnabledDeath then
+game:Shutdown()
+end
+elseif game.Players.LocalPlayer.Character.Humanoid.Health == 0 and _G.SelectDeath == "Revive" then
+if _G.EnabledDeath then
+game.ReplicatedStorage.RemoteFolder.Revive:FireServer()
+game.ReplicatedStorage.EntityInfo.Revive:FireServer()
+end
+end
 end})
 Tabs.Main:AddToggle({
   Name = "Enabled Death",
-  Default = false
-})
+  Description = "Enabled on <font color='rgb(255, 0, 0)'>Death</font>",
+  Default = false,
+  Callback = function(v)
+_G.EnabledDeath = v
+end})
+Tabs.Main:AddSection({"Players"})
+Tabs.Main:AddSlider({
+  Name = "Speed Boost",
+  Description = "Select <font color='rgb(255, 0, 0)'>Speed</font>",
+  Min = 16,
+  Max = 50,
+  Increase = 1,
+  Default = 16,
+  Callback = function(v)
+_G.Speed = v
+end})
+Tabs.Main:AddToggle({
+  Name = "Enabled Speed Boost",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Speed</font>",
+  Default = false,
+  Callback = function(v)
+_G.EnabledSpeed = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.EnabledSpeed then
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = _G.Speed or 15
+else
+game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 15
+end
+end)
+end})
+Tabs.Main:AddToggle({
+  Name = "Noclip",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Noclip</font>",
+  Default = false,
+  Callback = function(v)
+_G.Noclip = v
+game:GetService("RunService").RenderStepped:Connect(function()
+game.Players.LocalPlayer.Character.Collision.CanCollide = not _G.Noclip
+end)
+end})
