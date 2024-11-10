@@ -6,7 +6,7 @@ local Window = Library:MakeWindow({
 })
 local inf = 9e9
 Window:AddMinimizeButton({
-  Button = { Image = "rbxassetid://7713734565", ImageTransparency = 0.25, Size = UDim2.new(0.05, 0, 0.115, 0)},
+  Button = { Image = "rbxassetid://7713734565", BackgroundTransparency = 0, ImageTransparency = 0.25, Size = UDim2.new(0.05, 0, 0.115, 0)},
   Corner = { CornerRadius = UDim.new(0, inf) }
 })
 local Tabs = {
@@ -150,3 +150,105 @@ else
 InstanceInteract:Disconnect()
 end
 end})
+Tabs.Main:AddToggle({
+  Name = "Cross Interaction",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Cross Interaction</font>",
+  Default = false,
+  Callback = function(v)
+_G.CrossInteraction = v
+if _G.CrossInteraction then
+for _,v in pairs(workspace:GetDescendants()) do
+if v:IsA("ProximityPrompt") then
+v.RequiresLineOfSight = false
+end
+end
+CrossInteraction = workspace.ChildAdded:Connect(function(v)
+if v:IsA("ProximityPrompt") then
+v.RequiresLineOfSight = false
+end
+end)
+else
+for _,v in pairs(workspace:GetDescendants()) do
+if v:IsA("ProximityPrompt") then
+v.RequiresLineOfSight = true
+end
+end
+CrossInteraction:Disconnect()
+end
+end})
+Tabs.Main:AddToggle({
+  Name = "Speed Bypass",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Speed Bypass</font>",
+  Default = false,
+  Callback = function(v)
+_G.SpeedBypass = v
+if _G.SpeedBypass then
+_G.Wait = 0.22
+else
+_G.Wait = 10
+end
+local character = game.Players.LocalPlayer.Character
+local humanoid = character:FindFirstChildOfClass("Humanoid")
+local speedBoost, speedBoostFinished, speed = 30, false, false
+if bypass then
+if collisionClone then collisionClone:Destroy() end
+speed = true       
+local originalSpeed = SpeedBypass
+repeat task.wait()
+if not SpeedBypass then
+SpeedBypass:SetValue(true)
+end
+until speedBoostFinished
+SpeedBypass:SetValue(originalSpeed)
+else
+if not collisionClone then
+collisionClone = character.Collision:Clone() do
+collisionClone.CanCollide = false
+collisionClone.Massless = true
+collisionClone.Name = "CollisionClone"
+if collisionClone:FindFirstChild("CollisionCrouch") then
+collisionClone.CollisionCrouch:Destroy()
+end   
+collisionClone.Parent = character    
+end
+end
+task.spawn(function()  
+while not speedBoostFinished do
+collisionClone.Massless = not collisionClone.Massless
+task.wait(_G.Wait or 10)
+end           
+collisionClone.Massless = true                  
+end)
+end
+end})
+if not game.ReplicatedStorage.GameData.Floor.Value == "Fools" then
+Tabs.Main:AddToggle({
+  Name = "God Mode",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>God Mode</font>",
+  Default = false,
+  Callback = function(v)
+_G.GodMode = v
+if _G.GodMode then
+local Collison = game.Players.LocalPlayer.Character:FindFirstChild("Collision")
+Collison.Position = Collison.Position - Vector3.new(0,2.65,0)
+else
+local Collison = game.Players.LocalPlayer.Character:FindFirstChild("Collision")
+Collison.Position = Collison.Position - Vector3.new(0,-2.65,0)
+end
+end})
+elseif game.ReplicatedStorage.GameData.Floor.Value == "Fools" then
+Tabs.Main:AddToggle({
+  Name = "God Mode",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>God Mode</font>",
+  Default = false,
+  Callback = function(v)
+_G.GodModeFools = v
+if _G.GodModeFools then
+local Collison = game.Players.LocalPlayer.Character:FindFirstChild("Collision")
+Collison.Position = Collison.Position - Vector3.new(0,8,0)
+else
+local Collison = game.Players.LocalPlayer.Character:FindFirstChild("Collision")
+Collison.Position = Collison.Position - Vector3.new(0,-8,0)
+end
+end})
+end
