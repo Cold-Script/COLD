@@ -430,7 +430,7 @@ repeat task.wait() until not _G.AutoLoot
 addconnect:Disconnect()
 end
 end})
-_G.AutoGold = not false
+_G.AutoGold = true
 Tabs.Main:AddToggle({
   Name = "Ingore Gold",
   Description = "Enabled <font color='rgb(255, 0, 0)'>Ingore Gold</font>",
