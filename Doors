@@ -10,7 +10,19 @@ Window:AddMinimizeButton({
   Corner = { CornerRadius = UDim.new(0, inf) }
 })
 local Tabs = {
-Main = Window:MakeTab({"Main", "cherry"}),
-Exploit = Window:MakeTab({"Exploits", "cherry"}),
-Visual = Window:MakeTab({"Visual", "cherry"})
+Main = Window:MakeTab({"Main", "home"}),
+Exploit = Window:MakeTab({"Exploits", "flashlight"}),
+Visual = Window:MakeTab({"Visual", "camera"})
 }
+Tabs.Main:AddSection({"GamePlay"})
+Tabs.Main:AddDropdown({
+  Name = "Select on Death",
+  Description = "Select on <font color='rgb(255, 0, 0)'>Death</font>",
+  Options = {"Revive", "Leave", "Lobby"},
+  Default = "Revive",
+  Callback = function(v)
+end})
+Tabs.Main:AddToggle({
+  Name = "Enabled Death",
+  Default = false
+})
