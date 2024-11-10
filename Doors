@@ -187,9 +187,9 @@ Tabs.Main:AddToggle({
   Callback = function(v)
 _G.SpeedBypass = v
 if _G.SpeedBypass then
-_G.Wait = 0.22
+_G.Wait = 0.2
 else
-_G.Wait = 2
+_G.Wait = 1
 end
 local character = game.Players.LocalPlayer.Character
 local humanoid = character:FindFirstChildOfClass("Humanoid")
@@ -219,7 +219,7 @@ end
 task.spawn(function()  
 while not speedBoostFinished do
 collisionClone.Massless = not collisionClone.Massless
-task.wait(_G.Wait or 2)
+task.wait(_G.Wait or 1)
 end           
 collisionClone.Massless = true                  
 end)
@@ -340,7 +340,6 @@ until prompt:GetAttribute("Interactions") or not _G.AutoLoot
 end)
 end
 end
-if _G.AutoGold then
 elseif v.Name == "GoldPile" then
 local prompt = v:WaitForChild("LootPrompt")
 local interactions = prompt:GetAttribute("Interactions")
@@ -353,8 +352,19 @@ end
 until prompt:GetAttribute("Interactions") or not _G.AutoLoot
 end)
 end
-end
 elseif v.Name == "Candy" then
+local prompt = v:WaitForChild("ModulePrompt")
+local interactions = prompt:GetAttribute("Interactions")
+if not interactions then
+task.spawn(function()
+repeat task.wait(0.2)
+if game.Players.LocalPlayer:DistanceFromCharacter(v.PrimaryPart.Position) <= 12 then
+fireproximityprompt(prompt) 
+end
+until prompt:GetAttribute("Interactions") or not _G.AutoLoot
+end)
+end
+elseif v.Name == "Bandage" then
 local prompt = v:WaitForChild("ModulePrompt")
 local interactions = prompt:GetAttribute("Interactions")
 if not interactions then
@@ -429,12 +439,4 @@ end
 repeat task.wait() until not _G.AutoLoot
 addconnect:Disconnect()
 end
-end})
-_G.AutoGold = true
-Tabs.Main:AddToggle({
-  Name = "Ingore Gold",
-  Description = "Enabled <font color='rgb(255, 0, 0)'>Ingore Gold</font>",
-  Default = false,
-  Callback = function(v)
-_G.AutoGold = not v
 end})
