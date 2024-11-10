@@ -189,7 +189,7 @@ _G.SpeedBypass = v
 if _G.SpeedBypass then
 _G.Wait = 0.22
 else
-_G.Wait = 10
+_G.Wait = 2
 end
 local character = game.Players.LocalPlayer.Character
 local humanoid = character:FindFirstChildOfClass("Humanoid")
@@ -219,7 +219,7 @@ end
 task.spawn(function()  
 while not speedBoostFinished do
 collisionClone.Massless = not collisionClone.Massless
-task.wait(_G.Wait or 10)
+task.wait(_G.Wait or 2)
 end           
 collisionClone.Massless = true                  
 end)
