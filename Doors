@@ -142,8 +142,10 @@ v.HoldDuration = 0
 end
 end
 InstanceInteract = workspace.ChildAdded:Connect(function(v)
+for _,v in pairs(workspace:GetDescendants()) do
 if v:IsA("ProximityPrompt") then
 v.HoldDuration = 0
+end
 end
 end)
 else
@@ -163,8 +165,10 @@ v.RequiresLineOfSight = false
 end
 end
 CrossInteraction = workspace.ChildAdded:Connect(function(v)
+for _,v in pairs(workspace:GetDescendants()) do
 if v:IsA("ProximityPrompt") then
 v.RequiresLineOfSight = false
+end
 end
 end)
 else
@@ -227,6 +231,8 @@ Tabs.Main:AddToggle({
   Description = "Enabled <font color='rgb(255, 0, 0)'>God Mode</font>",
   Default = false,
   Callback = function(v)
+_G.GodMode = false
+wait(0.1)
 _G.GodMode = v
 if _G.GodMode then
 local Collison = game.Players.LocalPlayer.Character:FindFirstChild("Collision")
@@ -242,6 +248,8 @@ Tabs.Main:AddToggle({
   Description = "Enabled <font color='rgb(255, 0, 0)'>God Mode</font>",
   Default = false,
   Callback = function(v)
+_G.GodModeFools = false
+wait(0.1)
 _G.GodModeFools = v
 if _G.GodModeFools then
 local Collison = game.Players.LocalPlayer.Character:FindFirstChild("Collision")
