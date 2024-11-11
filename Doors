@@ -538,6 +538,34 @@ repeat task.wait() until not _G.AutoLoot
 addconnect:Disconnect()
 end
 end})
+Tabs.Main:AddSection({"Notify"})
+Tabs.Main:AddToggle({
+  Name = "Notify Event",
+  Description = "Enabled on <font color='rgb(255, 0, 0)'>Notification Event</font>",
+  Default = false,
+  Callback = function(v)
+if v then
+NotifyEvent = workspace.ChildAdded:Connect(function(v)
+if table.find({"RushMoving","AmbushMoving","Snare","A60","A120","SeekMoving","SeekNewCloneMoving","JeffTheKiller","Eyes","GloomPile"},v.Name) then
+repeat task.wait()
+until (game.Players.LocalPlayer:DistanceFromCharacter(v:GetPivot().Position)<1000) or not v:IsDescendantOf(workspace)
+if v:IsDescendantOf(workspace) then 
+if v.Name=="RushMoving" then 
+Notify("<!> | YIYO","Rush Is Coming Find Hide Spot", 5);
+local Sound = Instance.new("Sound")
+Sound.Parent = game.SoundService
+Sound.SoundId = "rbxassetid://4590657391"
+Sound.Volume = 5
+Sound.PlayOnRemove = true
+Sound:Destroy()
+end
+end
+end
+end)
+else
+NotifyEvent:Disconnect()
+end
+end})
 Tabs.Visual:AddSlider({
   Name = "Field Of View",
   Description = "Select <font color='rgb(255, 0, 0)'>Field Of View</font>",
