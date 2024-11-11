@@ -500,6 +500,31 @@ Tabs.Visual:AddDropdown({
   Callback = function(v)
 workspace.CurrentCamera.FieldOfViewMode = v
 end})
+Tabs.Visual:AddSlider({
+  Name = "Diagonal Field Of View",
+  Description = "Select <font color='rgb(255, 0, 0)'>Diagonal Field Of View</font>",
+  Min = 150,
+  Max = 300,
+  Increase = 1,
+  Default = 150,
+  Callback = function(v)
+game:GetService("RunService").RenderStepped:Connect(function()
+workspace.CurrentCamera.DiagonalFieldOfView = v or 150
+end)
+end})
+Tabs.Visual:AddSlider({
+  Name = "Max Axis Field Of View",
+  Description = "Select <font color='rgb(255, 0, 0)'>Max Axis Field Of View</font>",
+  Min = 200,
+  Max = 500,
+  Increase = 1,
+  Default = 500,
+  Callback = function(v)
+game:GetService("RunService").RenderStepped:Connect(function()
+workspace.CurrentCamera.MaxAxisFieldOfView = v or 200
+end)
+end})
+
 Tabs.Visual:AddSection({"Lighting"})
 Tabs.Visual:AddToggle({
   Name = "Fullbright",
