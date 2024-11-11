@@ -524,7 +524,22 @@ game:GetService("RunService").RenderStepped:Connect(function()
 workspace.CurrentCamera.MaxAxisFieldOfView = v or 200
 end)
 end})
-
+Tabs.Main:AddToggle({
+  Name = "Third Person",
+  Description = "Enabled on <font color='rgb(255, 0, 0)'>Third Person</font>",
+  Default = false,
+  Callback = function(v)
+_G.ThirdP = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.ThirdP then
+game.Players.LocalPlayer.CameraMode = "Classic"
+game.Players.LocalPlayer.Character.Head.Transparency = 0
+else
+game.Players.LocalPlayer.CameraMode = "LockFirstPerson"
+game.Players.LocalPlayer.Character.Head.Transparency = 1
+end
+end)
+end})
 Tabs.Visual:AddSection({"Lighting"})
 Tabs.Visual:AddToggle({
   Name = "Fullbright",
