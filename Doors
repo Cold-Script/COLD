@@ -468,3 +468,70 @@ repeat task.wait() until not _G.AutoLoot
 addconnect:Disconnect()
 end
 end})
+Tabs.Visual:AddSlider({
+  Name = "Field Of View",
+  Description = "Select <font color='rgb(255, 0, 0)'>Field Of View</font>",
+  Min = 70,
+  Max = 120,
+  Increase = 1,
+  Default = 70,
+  Callback = function(v)
+_G.FieldOfView = v
+end})
+Tabs.Visual:AddToggle({
+  Name = "Field Of View",
+  Description = "Enabled on <font color='rgb(255, 0, 0)'>Field Of View</font>",
+  Default = false,
+  Callback = function(v)
+_G.Field = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.Field then
+workspace.CurrentCamera.FieldOfView = _G.FieldOfView or 70
+else
+workspace.CurrentCamera.FieldOfView = 70
+end
+end)
+end})
+Tabs.Visual:AddDropdown({
+  Name = "View Mode",
+  Description = "Select on <font color='rgb(255, 0, 0)'>Death</font>",
+  Options = {"Diagonal", "MaxAxis", "Vertical"},
+  Default = "Diagonal",
+  Callback = function(v)
+workspace.CurrentCamera.FieldOfViewMode = v
+end})
+Tab.Visual:AddSection({"Lighting"})
+Tabs.Visual:AddToggle({
+  Name = "Fullbright",
+  Description = "Enabled on <font color='rgb(255, 0, 0)'>Fullbright</font>",
+  Default = false,
+  Callback = function(v)
+if v then
+game.Lighting.Brightness = 1.5
+game.Lighting.GlobalShadows = false
+game.Lighting.OutdoorAmbient = Color3.new(1,1,1)
+else
+game.Lighting.Brightness = 1
+game.Lighting.GlobalShadows = true
+game.Lighting.OutdoorAmbient = Color3.new(0,0,0)
+end
+end})
+Tabs.Visual:AddToggle({
+  Name = "No Fog",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>No Fog</font>",
+  Default = false,
+  Callback = function(v)
+pcall(function()
+if not game.Lighting:GetAttribute("FogStart") then game.Lighting:SetAttribute("FogStart", game.Lighting.FogStart) end
+if not game.Lighting:GetAttribute("FogEnd") then game.Lighting:SetAttribute("FogEnd", game.Lighting.FogEnd) end
+game.Lighting.FogStart = value and 0 or game.Lighting:GetAttribute("FogStart")
+game.Lighting.FogEnd = value and math.huge or game.Lighting:GetAttribute("FogEnd")
+local fog = game.Lighting:FindFirstChildOfClass("Atmosphere")
+if fog then
+if not fog:GetAttribute("Density") then fog:SetAttribute("Density", fog.Density) end
+fog.Density = value and 0 or fog:GetAttribute("Density")
+end
+end)
+end})
+Tabs.Visual:AddButton({"Remove Sky Effect", function()game.Lighting.Sky:Destroy()end})
+Tabs.Visual:AddButton({"Remove Blur Effect", function()game.Lighting.Blur:Destroy()end})
