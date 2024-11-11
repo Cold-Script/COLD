@@ -302,17 +302,6 @@ end
 RangeInteraction:Disconnect()
 end
 end})
-Tabs.Main:AddToggle({
-  Name = "Speed Bypass",
-  Description = "Enabled <font color='rgb(255, 0, 0)'>Speed Bypass</font>",
-  Default = false,
-  Callback = function(v)
-_G.SpeedBypass = v
-if _G.SpeedBypass then
-_G.Wait = 0.2
-else
-_G.Wait = 1
-end
 local character = game.Players.LocalPlayer.Character
 local humanoid = character:FindFirstChildOfClass("Humanoid")
 local speedBoost, speedBoostFinished, speed = 30, false, false
@@ -346,17 +335,24 @@ end
 collisionClone.Massless = true                  
 end)
 end
+Tabs.Main:AddToggle({
+  Name = "Speed Bypass",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Speed Bypass</font>",
+  Default = false,
+  Callback = function(v)
+_G.SpeedBypass = v
+if _G.SpeedBypass then
+_G.Wait = 0.2
+else
+_G.Wait = 1
+end
 end})
-if not game.ReplicatedStorage.GameData.Floor.Value == "Fools" then
 Tabs.Main:AddToggle({
   Name = "God Mode",
   Description = "Enabled <font color='rgb(255, 0, 0)'>God Mode</font>",
   Default = false,
   Callback = function(v)
-_G.GodMode = false
-wait(0.1)
-_G.GodMode = v
-if _G.GodMode then
+if v then
 local Collison = game.Players.LocalPlayer.Character:FindFirstChild("Collision")
 Collison.Position = Collison.Position - Vector3.new(0,2.65,0)
 else
@@ -364,24 +360,6 @@ local Collison = game.Players.LocalPlayer.Character:FindFirstChild("Collision")
 Collison.Position = Collison.Position - Vector3.new(0,-2.65,0)
 end
 end})
-elseif game.ReplicatedStorage.GameData.Floor.Value == "Fools" then
-Tabs.Main:AddToggle({
-  Name = "God Mode",
-  Description = "Enabled <font color='rgb(255, 0, 0)'>God Mode</font>",
-  Default = false,
-  Callback = function(v)
-_G.GodModeFools = false
-wait(0.1)
-_G.GodModeFools = v
-if _G.GodModeFools then
-local Collison = game.Players.LocalPlayer.Character:FindFirstChild("Collision")
-Collison.Position = Collison.Position - Vector3.new(0,8,0)
-else
-local Collison = game.Players.LocalPlayer.Character:FindFirstChild("Collision")
-Collison.Position = Collison.Position - Vector3.new(0,-8,0)
-end
-end})
-end
 Tabs.Main:AddSection({"Miscarriage"})
 Tabs.Main:AddSlider({
   Name = "Max Greed",
@@ -634,7 +612,7 @@ if table.find({"RushMoving","AmbushMoving","Snare","A60","A120","SeekMoving","Se
 repeat task.wait()
 until (game.Players.LocalPlayer:DistanceFromCharacter(v:GetPivot().Position)<1000) or not v:IsDescendantOf(workspace)
 if v:IsDescendantOf(workspace) then 
-if v.Name=="RushMoving" then 
+if v.Name == "RushMoving" then 
 Notify("< ! > | YIYO","Rush Is Coming Find Hide Spot", Color3.new(1), 5);
 local Sound = Instance.new("Sound")
 Sound.Parent = game.SoundService
