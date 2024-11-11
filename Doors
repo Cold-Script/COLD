@@ -500,7 +500,7 @@ Tabs.Visual:AddDropdown({
   Callback = function(v)
 workspace.CurrentCamera.FieldOfViewMode = v
 end})
-Tab.Visual:AddSection({"Lighting"})
+Tabs.Visual:AddSection({"Lighting"})
 Tabs.Visual:AddToggle({
   Name = "Fullbright",
   Description = "Enabled on <font color='rgb(255, 0, 0)'>Fullbright</font>",
