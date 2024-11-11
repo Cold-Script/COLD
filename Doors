@@ -181,6 +181,34 @@ CrossInteraction:Disconnect()
 end
 end})
 Tabs.Main:AddToggle({
+  Name = "Range Interaction",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Range Interaction</font>",
+  Default = false,
+  Callback = function(v)
+_G.RangeInteraction = v
+if _G.RangeInteraction then
+for _,v in pairs(workspace:GetDescendants()) do
+if v:IsA("ProximityPrompt") then
+v.MaxActivationDistance = 3
+end
+end
+RangeInteraction = workspace.ChildAdded:Connect(function(v)
+for _,v in pairs(workspace:GetDescendants()) do
+if v:IsA("ProximityPrompt") then
+v.MaxActivationDistance = 3
+end
+end
+end)
+else
+for _,v in pairs(workspace:GetDescendants()) do
+if v:IsA("ProximityPrompt") then
+v.MaxActivationDistance = 1
+end
+end
+RangeInteraction:Disconnect()
+end
+end})
+Tabs.Main:AddToggle({
   Name = "Speed Bypass",
   Description = "Enabled <font color='rgb(255, 0, 0)'>Speed Bypass</font>",
   Default = false,
