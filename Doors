@@ -24,8 +24,13 @@ Tabs.Main:AddDropdown({
 _G.SelectDeath = v
 if game.Players.LocalPlayer.Character.Humanoid.Health == 0 and _G.SelectDeath == "Lobby" then
 if _G.EnabledDeath then
-game.ReplicatedStorage.EntityInfo.Lobby:FireServer()
-game.ReplicatedStorage.RemoteFolder.Lobby:FireServer()
+for _,v in pairs(game.ReplicatedStorage:GetDescendants()) do
+if v.Name == "EntityInfo" then
+v.Lobby:FireServer()
+elseif v.Name == "RemoteFolder" then
+v.Lobby:FireServer()
+end
+end
 end
 elseif game.Players.LocalPlayer.Character.Humanoid.Health == 0 and _G.SelectDeath == "Leave" then
 if _G.EnabledDeath then
@@ -33,8 +38,13 @@ game:Shutdown()
 end
 elseif game.Players.LocalPlayer.Character.Humanoid.Health == 0 and _G.SelectDeath == "Revive" then
 if _G.EnabledDeath then
-game.ReplicatedStorage.RemoteFolder.Revive:FireServer()
-game.ReplicatedStorage.EntityInfo.Revive:FireServer()
+for _,v in pairs(game.ReplicatedStorage:GetDescendants()) do
+if v.Name == "EntityInfo" then
+v.Revive:FireServer()
+elseif v.Name == "RemoteFolder" then
+v.Revive:FireServer()
+end
+end
 end
 end
 end})
