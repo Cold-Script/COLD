@@ -299,7 +299,7 @@ Tabs.Main:AddSlider({
   Callback = function(v)
 _G.Greed = v
 game:GetService("RunService").RenderStepped:Connect(function()
-game.Players.LocalPlayer:SetAttribute("Greed", v)
+game.Players.LocalPlayer:SetAttribute("Greed", _G.Greed)
 end)
 end})
 Tabs.Main:AddToggle({
@@ -524,7 +524,7 @@ game:GetService("RunService").RenderStepped:Connect(function()
 workspace.CurrentCamera.MaxAxisFieldOfView = v or 200
 end)
 end})
-Tabs.Main:AddToggle({
+Tabs.Visual:AddToggle({
   Name = "Third Person",
   Description = "Enabled on <font color='rgb(255, 0, 0)'>Third Person</font>",
   Default = false,
