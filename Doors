@@ -426,6 +426,66 @@ end
 until prompt:GetAttribute("Interactions") or not _G.AutoLoot
 end)
 end
+elseif v.Name == "LiveHintBook" then
+local prompt = v:WaitForChild("ModulePrompt")
+local interactions = prompt:GetAttribute("Interactions")
+if not interactions then
+task.spawn(function()
+repeat task.wait(0.2)
+if game.Players.LocalPlayer:DistanceFromCharacter(v.PrimaryPart.Position) <= 12 then
+fireproximityprompt(prompt) 
+end
+until prompt:GetAttribute("Interactions") or not _G.AutoLoot
+end)
+end
+elseif v.Name == "LiveBreakerPolePickup" then
+local prompt = v:WaitForChild("ModulePrompt")
+local interactions = prompt:GetAttribute("Interactions")
+if not interactions then
+task.spawn(function()
+repeat task.wait(0.2)
+if game.Players.LocalPlayer:DistanceFromCharacter(v.PrimaryPart.Position) <= 12 then
+fireproximityprompt(prompt) 
+end
+until prompt:GetAttribute("Interactions") or not _G.AutoLoot
+end)
+end
+elseif v.Name == "FuseObtain" then
+local prompt = v:WaitForChild("ModulePrompt")
+local interactions = prompt:GetAttribute("Interactions")
+if not interactions then
+task.spawn(function()
+repeat task.wait(0.2)
+if game.Players.LocalPlayer:DistanceFromCharacter(v.PrimaryPart.Position) <= 12 then
+fireproximityprompt(prompt) 
+end
+until prompt:GetAttribute("Interactions") or not _G.AutoLoot
+end)
+end
+elseif v.Name == "MinesGateButton" then
+local prompt = v:WaitForChild("ModulePrompt")
+local interactions = prompt:GetAttribute("Interactions")
+if not interactions then
+task.spawn(function()
+repeat task.wait(0.2)
+if game.Players.LocalPlayer:DistanceFromCharacter(v.PrimaryPart.Position) <= 12 then
+fireproximityprompt(prompt) 
+end
+until prompt:GetAttribute("Interactions") or not _G.AutoLoot
+end)
+end
+elseif v.Name == "Locker_Small" then
+local prompt = v:WaitForChild("ActivateEventPrompt")
+local interactions = prompt:GetAttribute("Interactions")
+if not interactions then
+task.spawn(function()
+repeat task.wait(0.2)
+if game.Players.LocalPlayer:DistanceFromCharacter(v.PrimaryPart.Position) <= 12 then
+fireproximityprompt(prompt) 
+end
+until prompt:GetAttribute("Interactions") or not _G.AutoLoot
+end)
+end
 elseif v.Name:sub(1,8) == "ChestBox" then
 local prompt = v:WaitForChild("ActivateEventPrompt")
 local interactions = prompt:GetAttribute("Interactions")
@@ -513,25 +573,25 @@ end})
 Tabs.Visual:AddSlider({
   Name = "Diagonal Field Of View",
   Description = "Select <font color='rgb(255, 0, 0)'>Diagonal Field Of View</font>",
-  Min = 150,
+  Min = 170,
   Max = 300,
   Increase = 1,
-  Default = 150,
+  Default = 170,
   Callback = function(v)
 game:GetService("RunService").RenderStepped:Connect(function()
-workspace.CurrentCamera.DiagonalFieldOfView = v or 150
+workspace.CurrentCamera.DiagonalFieldOfView = v or 170
 end)
 end})
 Tabs.Visual:AddSlider({
   Name = "Max Axis Field Of View",
   Description = "Select <font color='rgb(255, 0, 0)'>Max Axis Field Of View</font>",
-  Min = 200,
+  Min = 140,
   Max = 500,
   Increase = 1,
-  Default = 500,
+  Default = 140,
   Callback = function(v)
 game:GetService("RunService").RenderStepped:Connect(function()
-workspace.CurrentCamera.MaxAxisFieldOfView = v or 200
+workspace.CurrentCamera.MaxAxisFieldOfView = v or 140
 end)
 end})
 Tabs.Visual:AddToggle({
