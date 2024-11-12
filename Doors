@@ -608,7 +608,8 @@ Tabs.Main:AddToggle({
   Callback = function(v)
 if v then
 NotifyEvent = workspace.ChildAdded:Connect(function(v)
-if table.find({"RushMoving","AmbushMoving","Snare","A60","A120","SeekMoving","SeekNewCloneMoving","JeffTheKiller","Eyes","GloomPile"},v.Name) then
+local entity = {"RushMoving","AmbushMoving","Snare","A60","A120","SeekMoving","SeekNewCloneMoving","JeffTheKiller","Eyes","GloomPile"}
+if table.find(entity,v.Name) then
 repeat task.wait()
 until (game.Players.LocalPlayer:DistanceFromCharacter(v:GetPivot().Position)<1000) or not v:IsDescendantOf(workspace)
 if v:IsDescendantOf(workspace) then 
@@ -617,7 +618,7 @@ Notify("< ! > | YIYO","Rush Is Coming Find Hide Spot", Color3.new(1), 5);
 local Sound = Instance.new("Sound")
 Sound.Parent = game.SoundService
 Sound.SoundId = "rbxassetid://4590657391"
-Sound.Volume = 5
+Sound.Volume = 5 
 Sound.PlayOnRemove = true
 Sound:Destroy()
 end
@@ -684,22 +685,7 @@ game:GetService("RunService").RenderStepped:Connect(function()
 workspace.CurrentCamera.MaxAxisFieldOfView = v or 140
 end)
 end})
-Tabs.Visual:AddToggle({
-  Name = "Third Person",
-  Description = "Enabled on <font color='rgb(255, 0, 0)'>Third Person</font>",
-  Default = false,
-  Callback = function(v)
-_G.ThirdP = v
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.ThirdP then
-game.Players.LocalPlayer.CameraMode = "Classic"
-game.Players.LocalPlayer.Character.Head.Transparency = 0
-else
-game.Players.LocalPlayer.CameraMode = "LockFirstPerson"
-game.Players.LocalPlayer.Character.Head.Transparency = 1
-end
-end)
-end})
+
 Tabs.Visual:AddSection({"Lighting"})
 Tabs.Visual:AddToggle({
   Name = "Fullbright",
