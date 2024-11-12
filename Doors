@@ -560,6 +560,7 @@ else
 NotifyEvent:Disconnect()
 end
 end})
+Tabs.Visual:AddSection({"Camera"})
 Tabs.Visual:AddSlider({
   Name = "Field Of View",
   Description = "Select <font color='rgb(255, 0, 0)'>Field Of View</font>",
@@ -569,6 +570,29 @@ Tabs.Visual:AddSlider({
   Default = 70,
   Callback = function(v)
 _G.FieldOfView = v
+end})
+Tabs.Visual:AddToggle({
+  Name = "Field Of View",
+  Description = "Enabled on <font color='rgb(255, 0, 0)'>Field Of View</font>",
+  Default = false,
+  Callback = function(v)
+_G.Field = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.Field then
+workspace.CurrentCamera.FieldOfView = _G.FieldOfView or 70
+else
+workspace.CurrentCamera.FieldOfView = 70
+end
+end)
+end})
+Tabs.Visual:AddSection({"Other Camera"})
+Tabs.Visual:AddDropdown({
+  Name = "View Mode",
+  Description = "Select on <font color='rgb(255, 0, 0)'>Death</font>",
+  Options = {"Diagonal", "MaxAxis", "Vertical"},
+  Default = "Diagonal",
+  Callback = function(v)
+workspace.CurrentCamera.FieldOfViewMode = v
 end})
 Tabs.Visual:AddSlider({
   Name = "Diagonal Field Of View",
@@ -593,28 +617,6 @@ Tabs.Visual:AddSlider({
 game:GetService("RunService").RenderStepped:Connect(function()
 workspace.CurrentCamera.MaxAxisFieldOfView = v or 140
 end)
-end})
-Tabs.Visual:AddToggle({
-  Name = "Field Of View",
-  Description = "Enabled on <font color='rgb(255, 0, 0)'>Field Of View</font>",
-  Default = false,
-  Callback = function(v)
-_G.Field = v
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.Field then
-workspace.CurrentCamera.FieldOfView = _G.FieldOfView or 70
-else
-workspace.CurrentCamera.FieldOfView = 70
-end
-end)
-end})
-Tabs.Visual:AddDropdown({
-  Name = "View Mode",
-  Description = "Select on <font color='rgb(255, 0, 0)'>Death</font>",
-  Options = {"Diagonal", "MaxAxis", "Vertical"},
-  Default = "Diagonal",
-  Callback = function(v)
-workspace.CurrentCamera.FieldOfViewMode = v
 end})
 Tabs.Visual:AddSection({"Lighting"})
 Tabs.Visual:AddToggle({
@@ -679,6 +681,7 @@ Tabs.Visual:AddToggle({
 _G.NoBat = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.NoBat then
+wait(0.3)
 for _,v in pairs(workspace:GetDescendants()) do
 if v:IsA("Model") and v.Name == "HangingHalloweenDecor" then
 v:Destroy()
