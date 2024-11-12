@@ -5,7 +5,6 @@ local Window = Library:MakeWindow({
   SubTitle = "| 🎮 YIYO",
   SaveFolder = "testando | redz lib v5.lua"
 })
-local inf = 9e9
 function message(text)
     local msg = Instance.new("Message",workspace)
     msg.Text = tostring(text)
@@ -13,8 +12,8 @@ function message(text)
     msg:Destroy()
 end
 Window:AddMinimizeButton({
-  Button = { Image = "rbxassetid://10747371901", BackgroundTransparency = 0, ImageTransparency = 0.25, Size = UDim2.new(0.05, 0, 0.115, 0)},
-  Corner = { CornerRadius = UDim.new(0, inf) }
+  Button = { Image = "rbxassetid://10709781717", BackgroundTransparency = 0, ImageTransparency = 0.25, Size = UDim2.new(0.05, 0, 0.115, 0)},
+  Corner = { CornerRadius = UDim.new(0, 9) }
 })
 local Tabs = {
 Main = Window:MakeTab({"Main", "home"}),
