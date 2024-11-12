@@ -1,4 +1,4 @@
-local RemoteFolder = if not game.ReplicatedStorage:WaitForChild("GameData"):WaitForChild("Floor").Value == "Fools" then game.ReplicatedStorage:WaitForChild("RemotesFolder") else game.ReplicatedStorage:WaitForChild("EntityInfo")
+local RemoteFolder = if not game:GetService("ReplicatedStorage"):WaitForChild("GameData"):WaitForChild("Floor").Value == "Fools" then game:GetService("ReplicatedStorage"):WaitForChild("RemotesFolder") else game:GetService("ReplicatedStorage"):WaitForChild("EntityInfo")
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RedzLibV5/main/Source.Lua"))()
 local Window = Library:MakeWindow({
   Title = "🎃 DOORS - Halloween",
@@ -6,6 +6,12 @@ local Window = Library:MakeWindow({
   SaveFolder = "testando | redz lib v5.lua"
 })
 local inf = 9e9
+function message(text)
+    local msg = Instance.new("Message",workspace)
+    msg.Text = tostring(text)
+    task.wait(5)
+    msg:Destroy()
+end
 Window:AddMinimizeButton({
   Button = { Image = "rbxassetid://10747371901", BackgroundTransparency = 0, ImageTransparency = 0.25, Size = UDim2.new(0.05, 0, 0.115, 0)},
   Corner = { CornerRadius = UDim.new(0, inf) }
@@ -532,32 +538,24 @@ addconnect:Disconnect()
 end
 end})
 Tabs.Main:AddSection({"Notify"})
+local entitynames = {"RushMoving","AmbushMoving","Snare","A60","A120"}
 Tabs.Main:AddToggle({
   Name = "Notify Event",
   Description = "Enabled on <font color='rgb(255, 0, 0)'>Notification Event</font>",
   Default = false,
   Callback = function(v)
+_G.Notify = v
 if v then
-NotifyEvent = workspace.ChildAdded:Connect(function(v)
-local entity = {"RushMoving","AmbushMoving","Snare","A60","A120","SeekMoving","SeekNewCloneMoving","JeffTheKiller","Eyes","GloomPile"}
-if table.find(entity,v.Name) then
-repeat task.wait()
-until (game.Players.LocalPlayer:DistanceFromCharacter(v:GetPivot().Position)<1000) or not v:IsDescendantOf(workspace)
-if v:IsDescendantOf(workspace) then 
-if v.Name == "RushMoving" then 
-Notify("< ! > | YIYO","Rush Is Coming Find Hide Spot", Color3.new(1), 5);
-local Sound = Instance.new("Sound")
-Sound.Parent = game.SoundService
-Sound.SoundId = "rbxassetid://4590657391"
-Sound.Volume = 5 
-Sound.PlayOnRemove = true
-Sound:Destroy()
-end
+addconnect = workspace.ChildAdded:Connect(function(v)
+if table.find(entitynames,v.Name) then
+repeat task.wait() until game.Players.LocalPlayer:DistanceFromCharacter(v:GetPivot().Position) < 1000 or not v:IsDescendantOf(workspace)
+if v:IsDescendantOf(workspace) then
+message(v.Name:gsub("Moving",""):lower().." has spawn")
 end
 end
 end)
-else
-NotifyEvent:Disconnect()
+repeat task.wait() until not _G.Notify
+addconnect:Disconnect()
 end
 end})
 Tabs.Visual:AddSection({"Camera"})
