@@ -1,7 +1,7 @@
 local RemoteFolder = if not game:GetService("ReplicatedStorage"):WaitForChild("GameData"):WaitForChild("Floor").Value == "Fools" then game:GetService("ReplicatedStorage"):WaitForChild("RemotesFolder") else game:GetService("ReplicatedStorage"):WaitForChild("EntityInfo")
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RedzLibV5/main/Source.Lua"))()
 local Window = Library:MakeWindow({
-  Title = "🎃 DOORS - Halloween",
+  Title = "🎃 DOORS - <font color='rgb(255, 153, 51)'>Halloween</font>",
   SubTitle = "| 🎮 YIYO",
   SaveFolder = "testando | redz lib v5.lua"
 })
@@ -25,8 +25,7 @@ Tabs.Main:AddSection({"GamePlay"})
 Tabs.Main:AddDropdown({
   Name = "Select on Death",
   Description = "Select on <font color='rgb(255, 0, 0)'>Death</font>",
-  Options = {"Revive", "Leave", "Lobby"},
-  Default = "Revive",
+  Options = {"Lobby", "Leave", "Revive"},
   Callback = function(v)
 _G.SelectDeath = v
 if game.Players.LocalPlayer.Character.Humanoid.Health == 0 and _G.SelectDeath == "Lobby" then
@@ -640,6 +639,7 @@ Tabs.Visual:AddToggle({
 _G.NoFogFloor = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.NoFogFloor then
+wait(0.9)
 for _,v in pairs(workspace:GetDescendants()) do if v.Name == "Parts" then v.Floor.ThickFog:Destroy() v.Floor.ThinFog:Destroy() end end
 end
 end)
@@ -679,7 +679,7 @@ Tabs.Visual:AddToggle({
 _G.NoBat = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.NoBat then
-wait(0.3)
+wait(0.9)
 for _,v in pairs(workspace:GetDescendants()) do
 if v:IsA("Model") and v.Name == "HangingHalloweenDecor" then
 v:Destroy()
