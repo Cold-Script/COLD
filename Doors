@@ -593,6 +593,80 @@ Tabs.Main:AddToggle({
   Callback = function(v)
 _G.Sound = v
 end})
+Tabs.Exploit:AddSection({"Entities"})
+Tabs.Main:AddToggle({
+  Name = "Anti Snare",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Anti Snare</font>",
+  Default = false,
+  Callback = function(v)
+if v then
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "Snare" then
+v.Hitbox.CanTouch = false
+end
+end
+AntiSnare = workspace.ChildAdded:Connect(function(v)
+for _,v in pairs(workspace:GetDescendants()) do
+if v.Name == "Snare" then
+v.Hitbox.CanTouch = false
+end
+end
+end)
+else
+AntiSnare:Disconnect()
+end
+end})
+Tabs.Main:AddToggle({
+  Name = "Anti Chandelier",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Anti Chandelier</font>",
+  Default = false,
+  Callback = function(v)
+_G.AntiChandelier = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AntiChandelier then 
+if game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:WaitForChild("Assets"):FindFirstChild("ChandelierObstruction") then 
+for _,v in pairs(game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:WaitForChild("Assets"):GetChildren()) do 
+if v.Name == "ChandelierObstruction" then 
+v.HurtPart.CanTouch = false
+end 
+end 
+end 
+end 
+end)
+end})
+Tabs.Main:AddToggle({
+  Name = "Anti Seek Arms",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Anti Seek Arms</font>",
+  Default = false,
+  Callback = function(v)
+_G.AntiSeekArms = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.AntiSeekArms then
+if game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:WaitForChild("Assets"):FindFirstChild("Seek_Arm") then
+for _,v in pairs(game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:WaitForChild("Assets"):GetChildren()) do 
+if v.Name == "Seek_Arm" then 
+v.AnimatorPart.CanTouch = false
+end 
+end 
+end 
+end 
+end)
+end})
+Tabs.Main:AddToggle({
+  Name = "Anti Eyes",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Anti Eyes</font>",
+  Default = false,
+  Callback = function(v)
+_G.AntiEyes = v
+game:GetService("Workspace").DescendantAdded:Connect(function()
+if not _G.AntiEyes then return end
+if _G.AntiEyes then 
+if workspace:FindFirstChild("Eyes") then 
+game:GetService("ReplicatedStorage").EntityInfo.MotorReplication:FireServer(0,(_G.AntiEyes and 120) or 0 ,0,false);
+end 
+end 
+end)
+end})
 Tabs.Visual:AddSection({"Camera"})
 Tabs.Visual:AddSlider({
   Name = "Field Of View",
@@ -680,7 +754,6 @@ end)
 else
 NoFogFloor:Disconnect()
 end
-end
 end})
 Tabs.Visual:AddToggle({
   Name = "No Fog",
@@ -729,6 +802,5 @@ end
 end)
 else
 NoBat:Disconnect()
-end
 end
 end})
