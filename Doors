@@ -12,12 +12,12 @@ Text = text,
 Duration = 5,
 })
 if _G.Sound then
-local Sound = Instance.new("Sound")
-Sound.Parent = game.SoundService
-Sound.SoundId = "rbxassetid://4590657391"
-Sound.Volume = 5 
-Sound.PlayOnRemove = true
-Sound:Destroy()
+local Sound = Instance.new("Sound");
+Sound.Parent = game.SoundService;
+Sound.SoundId = "rbxassetid://4590657391";
+Sound.Volume = 5 ;
+Sound.PlayOnRemove = true;
+Sound:Destroy();
 end
 end
 Window:AddMinimizeButton({
@@ -551,7 +551,6 @@ Tabs.Main:AddToggle({
   Description = "Enabled <font color='rgb(255, 0, 0)'>Notification Event</font>",
   Default = false,
   Callback = function(v)
-_G.Notify = v
 if v then
 addconnect = workspace.ChildAdded:Connect(function(v)
 if table.find(entitynames,v.Name) then
@@ -583,7 +582,7 @@ end
 end
 end
 end)
-repeat task.wait() until not _G.Notify
+else
 addconnect:Disconnect()
 end
 end})
