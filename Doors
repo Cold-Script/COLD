@@ -1,18 +1,19 @@
 local RemoteFolder = if not game:GetService("ReplicatedStorage"):WaitForChild("GameData"):WaitForChild("Floor").Value == "Fools" then game:GetService("ReplicatedStorage"):WaitForChild("RemotesFolder") else game:GetService("ReplicatedStorage"):WaitForChild("EntityInfo")
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RedzLibV5/main/Source.Lua"))()
 local Window = Library:MakeWindow({
-  Title = "🎃 DOORS - <font color='rgb(255, 153, 51)'>Halloween</font>",
-  SubTitle = "| 🎮 YIYO",
+  Title = "🎃 DOORS - Halloween",
+  SubTitle = "| 🌐 YIYO",
   SaveFolder = "testando | redz lib v5.lua"
 })
 function message(text)
-    local msg = Instance.new("Message",workspace)
-    msg.Text = tostring(text)
-    task.wait(5)
-    msg:Destroy()
+game.StarterGui:SetCore("SendNotification", {
+Title = "< ! > | YIYO",
+Text = text,
+Duration = 5,
+})
 end
 Window:AddMinimizeButton({
-  Button = { Image = "rbxassetid://10709781717", BackgroundTransparency = 0, ImageTransparency = 0.25, Size = UDim2.new(0.05, 0, 0.115, 0)},
+  Button = { Image = "rbxassetid://10734966248", BackgroundTransparency = 0, ImageTransparency = 0.25, Size = UDim2.new(0.05, 0, 0.115, 0)},
   Corner = { CornerRadius = UDim.new(0, 9) }
 })
 local Tabs = {
@@ -569,7 +570,7 @@ _G.FieldOfView = v
 end})
 Tabs.Visual:AddToggle({
   Name = "Field Of View",
-  Description = "Enabled on <font color='rgb(255, 0, 0)'>Field Of View</font>",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Field Of View</font>",
   Default = false,
   Callback = function(v)
 _G.Field = v
@@ -584,7 +585,7 @@ end})
 Tabs.Visual:AddSection({"Other Camera"})
 Tabs.Visual:AddDropdown({
   Name = "View Mode",
-  Description = "Select on <font color='rgb(255, 0, 0)'>Death</font>",
+  Description = "Select <font color='rgb(255, 0, 0)'>View Mode</font>",
   Options = {"Diagonal", "MaxAxis", "Vertical"},
   Default = "Diagonal",
   Callback = function(v)
@@ -639,7 +640,7 @@ _G.NoFogFloor = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.NoFogFloor then
 wait(0.9)
-for _,v in pairs(workspace:GetDescendants()) do if v.Name == "Parts" then v.Floor.ThickFog:Destroy() v.Floor.ThinFog:Destroy() end end
+for _,v in pairs(game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:GetDescendants()) do if v.Name == "Parts" then v.Floor.ThickFog:Destroy() v.Floor.ThinFog:Destroy() end end
 end
 end)
 end})
@@ -678,8 +679,7 @@ Tabs.Visual:AddToggle({
 _G.NoBat = v
 game:GetService("RunService").RenderStepped:Connect(function()
 if _G.NoBat then
-wait(0.9)
-for _,v in pairs(workspace:GetDescendants()) do
+for _,v in pairs(game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:GetDescendants()) do
 if v:IsA("Model") and v.Name == "HangingHalloweenDecor" then
 v:Destroy()
 end
