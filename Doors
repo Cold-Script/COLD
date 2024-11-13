@@ -636,13 +636,15 @@ Tabs.Visual:AddToggle({
   Description = "Enabled <font color='rgb(255, 0, 0)'>No Fog Floor</font>",
   Default = false,
   Callback = function(v)
-_G.NoFogFloor = v
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.NoFogFloor then
-wait(0.9)
+if v then
 for _,v in pairs(game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:GetDescendants()) do if v.Name == "Parts" then v.Floor.ThickFog:Destroy() v.Floor.ThinFog:Destroy() end end
-end
+NoFogFloor = workspace.ChildAdded:Connect(function(v)
+for _,v in pairs(game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:GetDescendants()) do if v.Name == "Parts" then v.Floor.ThickFog:Destroy() v.Floor.ThinFog:Destroy() end end
 end)
+else
+NoFogFloor:Disconnect()
+end
+end
 end})
 Tabs.Visual:AddToggle({
   Name = "No Fog",
@@ -676,14 +678,21 @@ Tabs.Visual:AddToggle({
   Description = "Enabled <font color='rgb(255, 0, 0)'>No Scary Bat</font>",
   Default = false,
   Callback = function(v)
-_G.NoBat = v
-game:GetService("RunService").RenderStepped:Connect(function()
-if _G.NoBat then
+if v then
 for _,v in pairs(game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:GetDescendants()) do
 if v:IsA("Model") and v.Name == "HangingHalloweenDecor" then
 v:Destroy()
 end
 end
+NoBat = workspace.ChildAdded:Connect(function(v)
+for _,v in pairs(game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:GetDescendants()) do
+if v:IsA("Model") and v.Name == "HangingHalloweenDecor" then
+v:Destroy()
+end
 end
 end)
+else
+NoBat:Disconnect()
+end
+end
 end})
