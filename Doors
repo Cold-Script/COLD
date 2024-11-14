@@ -55,7 +55,9 @@ Tabs.Main:AddToggle({
   Description = "Enabled on <font color='rgb(255, 0, 0)'>Death</font>",
   Default = false,
   Callback = function(v)
+game:GetService("RunService").RenderStepped:Connect(function()
 _G.EnabledDeath = v
+end)
 end})
 Tabs.Main:AddSection({"Players"})
 Tabs.Main:AddSlider({
@@ -594,7 +596,7 @@ Tabs.Main:AddToggle({
 _G.Sound = v
 end})
 Tabs.Exploit:AddSection({"Entities"})
-Tabs.Main:AddToggle({
+Tabs.Exploit:AddToggle({
   Name = "Anti Snare",
   Description = "Enabled <font color='rgb(255, 0, 0)'>Anti Snare</font>",
   Default = false,
@@ -616,7 +618,7 @@ else
 AntiSnare:Disconnect()
 end
 end})
-Tabs.Main:AddToggle({
+Tabs.Exploit:AddToggle({
   Name = "Anti Chandelier",
   Description = "Enabled <font color='rgb(255, 0, 0)'>Anti Chandelier</font>",
   Default = false,
@@ -634,7 +636,7 @@ end
 end 
 end)
 end})
-Tabs.Main:AddToggle({
+Tabs.Exploit:AddToggle({
   Name = "Anti Seek Arms",
   Description = "Enabled <font color='rgb(255, 0, 0)'>Anti Seek Arms</font>",
   Default = false,
@@ -652,12 +654,6 @@ end
 end 
 end)
 end})
-Tabs.Main:AddToggle({
-  Name = "Anti Eyes",
-  Description = "Enabled <font color='rgb(255, 0, 0)'>Anti Eyes</font>",
-  Default = false,
-  Callback = function(v)
-_G.AntiEyes = v
 game:GetService("Workspace").DescendantAdded:Connect(function()
 if not _G.AntiEyes then return end
 if _G.AntiEyes then 
@@ -666,6 +662,12 @@ game:GetService("ReplicatedStorage").EntityInfo.MotorReplication:FireServer(0,(_
 end 
 end 
 end)
+Tabs.Exploit:AddToggle({
+  Name = "Anti Eyes",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Anti Eyes</font>",
+  Default = false,
+  Callback = function(v)
+_G.AntiEyes = v
 end})
 game:GetService("Workspace").DescendantAdded:Connect(function()
 if not _G.AntiLookman then return end
@@ -738,6 +740,64 @@ Tabs.Exploit:AddToggle({
   Default = false,
   Callback = function(v)
 _G.AntiSeekDam = v
+end})
+Tabs.Exploit:AddSection({"Self"})
+Tabs.Exploit:AddToggle({
+  Name = "Helicopter Figure",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Helicopter Figure</font>",
+  Default = false,
+  Callback = function(v)
+_G.HelicopterFigure = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.HelicopterFigure then
+for _, v in pairs(game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:GetDescendants()) do
+if v.Name == "FigureRig" then
+v:PivotTo(v:GetPivot() * CFrame.new(0, 2, 0) * CFrame.Angles(0, math.rad(10), 0))
+v.HumanoidRootPart.CanCollide = false
+v.CanCollide = false
+elseif v.Name == "FigureRagdoll" then
+v:PivotTo(v:GetPivot() * CFrame.new(0, 2, 0) * CFrame.Angles(0, math.rad(10), 0))
+v.HumanoidRootPart.CanCollide = false
+v.CanCollide = false
+end
+end
+end
+end)
+end})
+Tabs.Exploit:AddToggle({
+  Name = "Helicopter Jeff The Killer",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Helicopter Jeff The Killer</font>",
+  Default = false,
+  Callback = function(v)
+_G.HelicopterJeff = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.HelicopterJeff then
+for _, v in pairs(game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:GetChildren()) do
+if v.Name == "JeffTheKiller" then
+v:PivotTo(v:GetPivot() * CFrame.new(0, 2, 0) * CFrame.Angles(0, math.rad(10), 0))
+v.HumanoidRootPart.CanCollide = false
+end
+end
+end
+end)
+end})
+Tabs.Exploit:AddToggle({
+  Name = "Under Side Banana",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Helicopter Banana</font>",
+  Default = false,
+  Callback = function(v)
+_G.HelicopterBanana = v
+game:GetService("RunService").RenderStepped:Connect(function()
+if _G.HelicopterBanana then
+for _, v in pairs(game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:GetDescendants()) do
+if v.Name == "BananaPeel" then
+v:PivotTo(v:GetPivot() * CFrame.new(0, -2, 0) * CFrame.Angles(0, math.rad(10), 0))
+v.CanCollide = false
+v.CanTouch = false
+end
+end
+end
+end)
 end})
 Tabs.Visual:AddSection({"Camera"})
 Tabs.Visual:AddSlider({
