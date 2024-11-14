@@ -667,6 +667,78 @@ end
 end 
 end)
 end})
+game:GetService("Workspace").DescendantAdded:Connect(function()
+if not _G.AntiLookman then return end
+if _G.AntiLookman then 
+if workspace:FindFirstChild("BackdoorLookman") then 
+game:GetService("ReplicatedStorage").EntityInfo.MotorReplication:FireServer(0,(_G.AntiLookman and 120) or 0 ,0,false)
+end 
+end 
+end)
+Tabs.Exploit:AddToggle({
+  Name = "Anti Lookman",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Anti Lookman</font>",
+  Default = false,
+  Callback = function(v)
+_G.AntiLookman = v
+end})
+game:GetService("RunService").RenderStepped:Connect(function()
+pcall(function()
+if _G.AntiGiggle then
+for _, room in pairs(game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:GetChildren()) do
+if room.Name == "GiggleCeiling" then
+room.Hitbox.CanTouch = false
+end
+end
+end
+end)
+end)
+Tabs.Exploit:AddToggle({
+  Name = "Anti Giggle",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Anti Giggle</font>",
+  Default = false,
+  Callback = function(v)
+_G.AntiGiggle = v
+end})
+game:GetService("RunService").RenderStepped:Connect(function()
+pcall(function()
+if _G.AntiGloomEgg then
+for _, room in pairs(game.workspace.CurrentRooms[tostring(game:GetService("ReplicatedStorage").GameData.LatestRoom.Value)]:GetChildren()) do
+if room.Name == "GloomPile" then
+room.Egg.CanTouch = false
+end
+end
+end
+end)
+end)
+Tabs.Exploit:AddToggle({
+  Name = "Anti Gloom Pile",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Anti Gloom Pile</font>",
+  Default = false,
+  Callback = function(v)
+_G.AntiGloomEgg = v
+end})
+game:GetService("RunService").RenderStepped:Connect(function()
+pcall(function()
+if _G.AntiSeekDam then
+local room = workspace.CurrentRooms:FindFirstChild("100")
+if room and room:FindFirstChild("_DamHandler") then
+local seekFlood = room._DamHandler:FindFirstChild("SeekFloodline")
+if _G.AntiDam then
+seekFlood.CanCollide = false
+seekFlood.CanTouch = false
+end
+end
+end
+end)
+end)
+Tabs.Exploit:AddToggle({
+  Name = "Anti Seek Dam",
+  Description = "Enabled <font color='rgb(255, 0, 0)'>Anti Seek Dam</font>",
+  Default = false,
+  Callback = function(v)
+_G.AntiSeekDam = v
+end})
 Tabs.Visual:AddSection({"Camera"})
 Tabs.Visual:AddSlider({
   Name = "Field Of View",
